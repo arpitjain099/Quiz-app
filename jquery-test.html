@@ -1,0 +1,78 @@
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+ 
+ 
+    var i = $('input').size() + 1;
+     
+    $('#add').click(function() {
+    	$('</br><div><textarea rows="4" cols="40" type="text" class="question" name="dynamic[]" placeholder="Question" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option1" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div><textarea rows="1" cols="40"  type="text" class="option" name="dynamic[]" placeholder="option2" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option3" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option4" /></div>').fadeIn('slow').appendTo('.inputs');
+        i++;
+    });
+     
+    $('#remove').click(function() {
+    if(i > 1) {
+        $('.question:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();
+        i--;
+    }
+    });
+     
+    $('#reset').click(function() {
+    while(i > 2) {
+        $('.question:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();
+        i--;
+    }
+    });
+     
+    // here's our click function for when the forms submitted
+ 
+    $('.submit').click(function(){
+    var questions = [];                  
+    var options = [];
+    $.each($('.question'), function() {
+        questions.push($(this).val());
+    });
+
+    $.each($('.option'), function() {
+        options.push($(this).val());
+    });
+     
+    if(options.length == 0) {
+        options = "none";
+    }  
+ 
+    alert(options);
+     
+    return false;
+                                 
+    });
+     
+ 
+});
+</script>
+<center><br><br>
+<div id="container">
+
+<div class="sky_ad" align="right">
+
+</div>
+<div id="inner_wrap">
+
+<div class="dynamic-form">
+
+<a href="#" id="add">Add</a> | <a href="#" id="remove">Remove</a>  | <a href="#" id="reset">Reset</a>  
+
+<form>
+<div class="inputs">
+<div></div>
+</div>
+<br>
+<input name="submit" type="button" class="submit" value="Submit" />
+</form>
+</div>
+</center>
