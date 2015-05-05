@@ -1,0 +1,54 @@
+<script type="text/javascript">
+	function xmlhttpcall(){
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+
+
+
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+   
+   if(xmlhttp.responseText=="wrong credentials")
+    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
+  alert("Wrong credentials entered. Please try again!");
+location.reload();
+
+}
+    else {
+    	document.cookie="username=".concat(document.getElementById("loginform").elements[0].value);
+    	document.cookie="coursenumber=".concat(document.getElementById("loginform").elements[2].value);
+   console.log("cookie set");
+   window.location.assign("http://localhost/jquery-quiz-server-side/jquery-test.html");
+}
+   //alert(readCookie("username"));
+    }
+  }
+
+
+xmlhttp.open("POST","http://localhost/jquery-quiz-server-side/checkcredentials.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//alert();
+xmlhttp.send("username=".concat(document.getElementById("loginform").elements[0].value).concat("&course=".concat(document.getElementById("loginform").elements[2].value)).concat("&password=".concat(document.getElementById("loginform").elements[1].value)));
+
+//xmlhttp.send();
+
+	}
+</script><center>
+<form id="loginform">
+<input type="text" placeholder="iitk username"></input><br>
+<input type="password" placeholder="password"></input><br>
+<input type="text" placeholder="course number"></input><br>
+<!--Unique identifier: 
+<input type="text" id="uniqueid" placeholder="e.g. CS315-04-05-2015-1"></input></br></br>-->
+<input name="submit"  type="button" class="submit" value="Submit" onclick="xmlhttpcall()"/><br><br>
+
+</form></center>

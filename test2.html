@@ -1,0 +1,8 @@
+<script type="text/javascript">
+	var string='{"55483710af8b715d103c986a":{"_id":{"$id":"55483710af8b715d103c986a"},"number":1,"questions":"q1","option1":"a1","option2":"a2","option3":"a3","option4":"a4"},"55483710af8b715d103c986b":{"_id":{"$id":"55483710af8b715d103c986b"},"number":2,"questions":"q2","option1":"a1","option2":"a2","option3":"a3","option4":"a4"}}';
+	var json=JSON.parse(string);
+	var arr = Object.keys(json).map(function(k) { return json[k] });
+	for (var i=0;i<arr.length;i++)
+
+	console.log(arr[i]['questions']);
+</script>

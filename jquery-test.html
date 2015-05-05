@@ -10,8 +10,8 @@ $(document).ready(function(){
     	$('</br><div><textarea rows="4" cols="40" type="text" class="question" name="dynamic[]" placeholder="Question" /></div>').fadeIn('slow').appendTo('.inputs');
         $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option1" /></div>').fadeIn('slow').appendTo('.inputs');
         $('<div><textarea rows="1" cols="40"  type="text" class="option" name="dynamic[]" placeholder="option2" /></div>').fadeIn('slow').appendTo('.inputs');
-        $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option3" /></div>').fadeIn('slow').appendTo('.inputs');
-        $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option4" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option3,enter NA if its a yes/no question" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option4,enter NA if its a yes/no question" /></div>').fadeIn('slow').appendTo('.inputs');
         i++;
     });
      
@@ -45,8 +45,12 @@ $(document).ready(function(){
     if(options.length == 0) {
         options = "none";
     }  
- 
-    alert(options);
+    //$.post( "http://localhost/jquery-quiz-server-side/response.php", { questions: questions, options: options } );
+    $.post( "http://localhost/jquery-quiz-server-side/response.php", { questions: questions, options: options})
+  .done(function( data ) {
+    document.getElementById("output").innerHTML=data;
+  });
+    //alert(options);
      
     return false;
                                  
@@ -65,6 +69,7 @@ $(document).ready(function(){
 
 <div class="dynamic-form">
 
+
 <a href="#" id="add">Add</a> | <a href="#" id="remove">Remove</a>  | <a href="#" id="reset">Reset</a>  
 
 <form>
@@ -72,7 +77,11 @@ $(document).ready(function(){
 <div></div>
 </div>
 <br>
-<input name="submit" type="button" class="submit" value="Submit" />
+<!--Unique identifier: 
+<input type="text" id="uniqueid" placeholder="e.g. CS315-04-05-2015-1"></input></br></br>-->
+<input name="submit"  type="button" class="submit" value="Submit" /><br><br>
+<div id="output"></div>
+
 </form>
 </div>
 </center>
