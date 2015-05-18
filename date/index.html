@@ -1,0 +1,28 @@
+<link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css"/ >
+<script src="jquery.min.js"></script>
+<script src="jquery.datetimepicker.js"></script>
+<input id="datetimepicker" onclick="cakk()"type="text" >
+<input id="datetimepicker_unixtime"  >
+<input id="datetimepicker_start_time"  >
+<button onclick="ca()">da</button>
+<script type="text/javascript">
+jQuery('#datetimepicker').datetimepicker();
+console.log(document.getElementById("datetimepicker").value);
+jQuery('#datetimepicker_unixtime').datetimepicker({
+  format:'unixtime'
+ 
+});
+jQuery('#datetimepicker_start_time').datetimepicker({
+  startDate:'+1971/05/01'//or 1986/12/08
+});
+
+function ca(){
+	console.log(document.getElementById("datetimepicker_start_time").value);
+	var tea= $("#datetimepicker_start_time").value;//datepicker('getDate') / 1000;
+	var dateyDate = new Date(tea);
+	console.log(dateyDate);
+
+}
+function cakk(){
+console.log(document.getElementById("datetimepicker").value);}
+</script>

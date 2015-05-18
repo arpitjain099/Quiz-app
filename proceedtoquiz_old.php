@@ -37,20 +37,30 @@ if($result->num_rows>0){
 */
 // ^^ old php code
 header('Access-Control-Allow-Origin: *');
- $m = new MongoClient();
+
    //echo "Connection to database successfully";
    //echo "<br>";
    // select a database
+$m2 = new MongoClient();
+$db2 = $m2->mkh;
+$collection2 = $db2->userdatabase;
+$joe2 = $collection2->findOne(array("username" => $_POST['username'],"password"=> $_POST['password']));
+	if(!$joe2){
+		//echo $_POST['username'];
+		//echo $_POST['password'];
+		echo "wrong credentials";return;}
+	else{
+		 $m = new MongoClient();
    $db = $m->mkh;
    //echo "Database thesisdb selected";
-   $collection = $db->users;
+   $collection = $db->$_POST['id'];
    //echo "Collection selected succsessfully";
-   $joe = $collection->findOne(array("username" => $_POST['username'],"password"=> $_POST['password'],"course"=> $_POST['course']));
-   if(!$joe)echo "wrong credentials";
+   $joe = $collection->find();
+   if(!$joe)echo "not found";
    //
-   else echo "user found";
+   else echo json_encode(iterator_to_array($joe));
   //echo $joe['phone'];
    
 
-
+}
 ?>

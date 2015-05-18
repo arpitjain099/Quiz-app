@@ -1,9 +1,42 @@
-<script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript">
 
-$(document).ready(function(){
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
+        <script src="jquery.min.js"></script>
+        <script src="jquery-ui.min.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script src="bootstrap-datetimepicker.min.js"></script>
+
+
+<script type="text/javascript">
+$(function() {
+
+ var msgCount = 0;
+
+                $('#datetimepicker1').datetimepicker({
+                    maskInput: false,
+                    pickDate: true,
+                    pickTime: true,
+                    pick12HourFormat: true,
+                    pickSeconds: true
+                });
+
+                $('#datetimepicker2').datetimepicker({
+                    maskInput: false,
+                    pickDate: true,
+                    pickTime: true,
+                    pick12HourFormat: true,
+                    pickSeconds: true
+                });
  
- 
+            function changeTz1(tzName, tzValue) {
+                
+                $('#timezone1').val(tzValue);
+            }
+
+            function changeTz2(tzName, tzValue) {
+                
+                $('#timezone2').val(tzValue);
+            }
     var i = $('input').size() + 1;
      
     $('#add').click(function() {
@@ -12,19 +45,20 @@ $(document).ready(function(){
         $('<div><textarea rows="1" cols="40"  type="text" class="option" name="dynamic[]" placeholder="option2" /></div>').fadeIn('slow').appendTo('.inputs');
         $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option3,enter NA if its a yes/no question" /></div>').fadeIn('slow').appendTo('.inputs');
         $('<div><textarea rows="1" cols="40" type="text" class="option" name="dynamic[]" placeholder="option4,enter NA if its a yes/no question" /></div>').fadeIn('slow').appendTo('.inputs');
+        $('<div><textarea rows="1" cols="40" type="text" class="answers" name="dynamic[]" placeholder="Answer A/B/C/D" /></div>').fadeIn('slow').appendTo('.inputs');
         i++;
     });
      
     $('#remove').click(function() {
     if(i > 1) {
-        $('.question:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();
+        $('.question:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.answer:last').remove();
         i--;
     }
     });
      
     $('#reset').click(function() {
     while(i > 2) {
-        $('.question:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();
+        $('.question:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.option:last').remove();$('.answer:last').remove();
         i--;
     }
     });
@@ -32,10 +66,34 @@ $(document).ready(function(){
     // here's our click function for when the forms submitted
  
     $('.submit').click(function(){
+if ($('#datetime1').val() == '' || $('#timezone1').val() == '') {
+                        alert('Please choose a starting date and time.');
+                        return;
+                    }
+
+                    if ($('#datetime2').val() == '' || $('#timezone2').val() == '') {
+                        alert('Please choose a ending date and time.');
+                        return;
+                    }
+
+                   if ($('#datetime2').val()  <=$('#datetime1').val()){
+                    alert('Ending time should be later than start time');
+                        return;
+                   }
+                   
+                    
+                    console.log($('#datetime1').val());
+                    console.log($('#timezone1').val());
+                    console.log($('#datetime2').val());
+                    console.log($('#timezone2').val());
     var questions = [];                  
     var options = [];
+    var answers=[];
     $.each($('.question'), function() {
         questions.push($(this).val());
+    });
+    $.each($('.answers'), function() {
+        answers.push($(this).val());
     });
 
     $.each($('.option'), function() {
@@ -46,7 +104,7 @@ $(document).ready(function(){
         options = "none";
     }  
     //$.post( "http://localhost/jquery-quiz-server-side/response.php", { questions: questions, options: options } );
-    $.post( "http://localhost/jquery-quiz-server-side/response.php", { questions: questions, options: options})
+    $.post( "http://localhost/jquery-quiz-server-side/response.php", { questions: questions, options: options,datetime1:$('#datetime1').val(),datetime2:$('#datetime2').val(),timezone1:$('#timezone1').val(),timezone2:$('#timezone2').val(), answers:answers, coursename: window.localStorage.getItem("coursecookie")})
   .done(function( data ) {
     document.getElementById("output").innerHTML=data;
   });
@@ -60,6 +118,58 @@ $(document).ready(function(){
 });
 </script>
 <center><br><br>
+<div id="datetimepicker1" class="well well-large input-prepend input-append date">
+
+                <div class="btn-group">
+                   
+                    <ul class="dropdown-menu">
+                       
+                        <li><a href="javascript:changeTz1('UTC', 'UTC');">UTC</a></li>
+                    </ul>
+                </div>
+
+                <input placeholder="Choose starting date and time&hellip;" data-format="MM/dd/yyyy HH:mm:ss PP" type="text" class="span3" id="datetime1">
+
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                </span>
+
+                
+
+           
+
+
+            <input name="timezone1" id="timezone1" value="America/Chicago" type="hidden">
+
+        </div>
+
+      <div id="datetimepicker2" class="well well-large input-prepend input-append date">
+
+                <div class="btn-group">
+                   
+                    <ul class="dropdown-menu">
+                       
+                        <li><a href="javascript:changeTz2('UTC', 'UTC');">UTC</a></li>
+                    </ul>
+                </div>
+
+                <input placeholder="Choose ending date and time&hellip;" data-format="MM/dd/yyyy HH:mm:ss PP" type="text" class="span3" id="datetime2">
+
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                </span>
+
+             
+ 
+           
+
+
+            <input name="timezone2" id="timezone2" value="America/Chicago" type="hidden">
+
+        </div>
+
+    
+
 <div id="container">
 
 <div class="sky_ad" align="right">

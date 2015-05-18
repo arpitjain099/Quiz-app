@@ -50,6 +50,13 @@ $joe2 = $collection2->findOne(array("username" => $_POST['username'],"password"=
 		//echo $_POST['password'];
 		echo "wrong credentials";return;}
 	else{
+    $testconnection = $db2->$_POST['id'];
+    $ja=$testconnection->find();
+    //echo count(json_decode(json_encode(iterator_to_array($ja)),1));
+    if(!count(json_decode(json_encode(iterator_to_array($ja)),1)))
+      {echo "wrong id entered";return;}
+
+
 		 $m = new MongoClient();
    $db = $m->mkh;
    //echo "Database thesisdb selected";
