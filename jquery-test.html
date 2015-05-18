@@ -75,11 +75,9 @@ if ($('#datetime1').val() == '' || $('#timezone1').val() == '') {
                         alert('Please choose a ending date and time.');
                         return;
                     }
-
-                   if ($('#datetime2').val()  <=$('#datetime1').val()){
-                    alert('Ending time should be later than start time');
-                        return;
-                   }
+                    console.log($('#datetime1').val());
+                    console.log($('#datetime2').val());
+                   
                    
                     
                     console.log($('#datetime1').val());

@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 /*
 
 $username = $_GET['username'];
@@ -36,7 +37,7 @@ if($result->num_rows>0){
 
 */
 // ^^ old php code
-header('Access-Control-Allow-Origin: *');
+
 
    //echo "Connection to database successfully";
    //echo "<br>";

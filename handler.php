@@ -13,7 +13,7 @@ $ta= time();
 if( (int)$ta>=(int)$joe['starttime']) 
 if( (int)$ta<=(int)$joe['endtime'])
 {$collection = $db->responses;
-$collection->insert(array("userid"=> $_POST['userid'], "answer"=>$_POST['answer'], "time"=>$_POST['time'],"questionid"=> $_POST['questionid'],"timestamp" => $_POST['timestamp'],"testid" => $_POST['testid']));
+$collection->insert(array("userid"=> $_POST['userid'], "answer"=>$_POST['answer'], "time"=>$_POST['time'],"questionid"=> $_POST['questionid'],"timestamp" => $ta,"testid" => $_POST['testid']),"response"=>$_POST['response']);
 	
 }
 else{
